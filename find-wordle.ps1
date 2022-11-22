@@ -10,7 +10,10 @@ param (
     [string] $fifth
 )
 
+
+
 begin {
+
     Clear-Host
     # Forcing the temp workng copy of wordle master list to repopulate
     if ($startOver.IsPresent) {
@@ -48,12 +51,10 @@ begin {
     foreach ($w in $ww) {
         $null = $tww.Add($w)
     }
-    # if ($include) {
-    #     [System.Collections.ArrayList]$include = $include.ToCharArray()
-    # } else {
-    #     [System.Collections.ArrayList]$include = @()
-    # }
+
 }
+
+
 
 process {
 
@@ -155,23 +156,12 @@ process {
         filterByPosition -pos 5 -letter $fifth
     }
 
-    # Add words that only include the letters specified, this is an AND list, not and/or
-    # if($include) {
-    #     $include
-    #     foreach ($i in $include) {
-    #         # Need to make a new copy of the arraylist - not just an object that references the original arraylist
-    #         $sww = [Management.Automation.PSSerializer]::DeSerialize([Management.Automation.PSSerializer]::Serialize($tww))
-    #         foreach ($w in $sww) {
-    #             if ($w -notmatch $i) {
-    #                 $tww.Remove($w) | out-null
-    #             }
-    #         }
-    #     }
-    #     write-host -ForegroundColor DarkGreen "(+) including $i - filtered down to $($tww.count) possible words"
-    # }
 }
 
+
+
 end {
+
     $tww | out-file -FilePath $env:TEMP\tempWordle.txt -Force
     Write-Verbose "doing end"
     Write-Host
@@ -184,4 +174,5 @@ end {
         write-output "====="
         #for (1...3) { write-output "" }
     }
+
 }
